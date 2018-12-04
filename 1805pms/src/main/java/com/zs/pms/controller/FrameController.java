@@ -41,13 +41,14 @@ public class FrameController {
 	 * @param code   验证码
 	 * @param session  产生会话
 	 * @param map      回带数据
-	 * @return              返回页面
+	 * @return              返回页面 111
 	 */
 	public String login(QueryUser query, String code, HttpSession session, ModelMap map) {
 		// 验证码验证
 		// 从session中取得kaptcha生成的验证码
 		String ocode = (String) session.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 
+		
 		// 验证码不相同
 		if (!ocode.equals(code)) {
 			// 页面回带信息
