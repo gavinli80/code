@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zs.pms.exception.AppException;
 import com.zs.pms.po.TUser;
+import com.zs.pms.service.RedisService;
 import com.zs.pms.service.UserService;
 import com.zs.pms.utils.DateUtil;
 import com.zs.pms.vo.QueryUser;
@@ -23,6 +24,9 @@ public class FrameController {
 
 	@Autowired
 	UserService us;
+	
+	@Autowired
+	RedisService cs;
 
 	@RequestMapping("/tologin.do")
 	/**
@@ -64,6 +68,15 @@ public class FrameController {
 			session.setAttribute("CUSER", user);
 			//当前日期
 			session.setAttribute("TODAY", DateUtil.getStrDate(new Date()));
+			
+			//登录成功  将码表取出后写入redis中
+			cs.setTCodes("F"); //材质
+			cs.setTCodes("C");//颜色
+			cs.setTCodes("S"); //尺码
+			
+			cs.setBrands();//品牌
+			cs.setTypes(1);//上衣类型的子类别
+			
 			return "main";
 		}
 		// 业务异常

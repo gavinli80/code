@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--指向DAO接口，做Dao实现 -->
+<mapper namespace="com.zs.pms.dao.ProductDao">
+	<select id="queryAll" resultType="TProduct">
+		select * from tproduct order by id desc
+	
+	</select>
+	
+	<insert id="insert" parameterType="TProduct">
+		<selectKey  keyProperty="id" order="BEFORE" resultType="int"> 
+			select seq_tproduct.nextval from dual			
+		</selectKey> 
+		insert into tproduct(id,pname,brand,weight,isnew,ishot,isrecommend,ptype,creator,creatime,
+		status,fromarea,discribe,packlist,features,colors,sizes,picurl)
+		values(#{id},#{pname},#{brand},#{weight},#{isnew},#{ishot},#{isrecommend},#{ptype},#{creator},
+		sysdate,#{status},#{fromarea},#{discribe},#{packlist},#{features},#{colors},#{sizes},#{picurl})
+	</insert>
+	
+</mapper>
